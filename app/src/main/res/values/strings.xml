@@ -1,0 +1,36 @@
+<resources>
+    <string name="app_name">NMedia</string>
+    <string name="start_text">NMedia!</string>
+    <string name="header_title">Netology. Univercity of digital professions</string>
+    <string name="header_date">21 May at 18:36</string>
+    <string name="post_text">\tLorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
+        venenatis fringilla ipsum, a suscipit nulla ultrices nec. Donec ac justo ex. Sed consequat
+        elit in mi interdum volutpat. Aliquam sem augue, faucibus fringilla mi eu, fermentum pretium
+        felis. Maecenas efficitur condimentum nisl eu scelerisque. Vestibulum euismod tellus non
+        venenatis fringilla. Phasellus ac placerat arcu. Ut nunc nunc, consequat a venenatis quis,
+        luctus in quam. Mauris pretium tempor hendrerit. Donec consectetur gravida magna, et pretium
+        mauris efficitur eu. Quisque aliquet sem in eros commodo, vitae rhoncus enim egestas. Nunc
+        aliquet posuere molestie.
+        \n\n\tDonec luctus egestas est ut placerat. Fusce nibh tellus, rhoncus sed ullamcorper et,
+        laoreet nec odio. Curabitur id egestas felis. Morbi a tellus sed ligula sollicitudin
+        feugiat. -> http://netolo.gy/fyb</string>
+
+    <string name="post_menu_remove">Remove</string>
+    <string name="post_menu_edit">Edit</string>
+
+    <string name="post_input_hint">Post text</string>
+    <string name="empty_post_error">Post is blank</string>
+    <string name="description_post_like">Like</string>
+    <string name="description_post_share">Share</string>
+    <string name="description_post_viewed">Viewed</string>
+    <string name="description_post_menu">Menu</string>
+
+    <string name="empty_content_error">Content is empty</string>
+    <string name="create_new_post">Create new post</string>
+    <string name="chooser_share_post">Choose App</string>
+    <string name="channel_remote_name" translatable="false">Server notifications</string>
+    <string name="channel_remote_description" translatable="false">Notifications from remote server</string>
+    <string name="notification_user_liked" translatable="false">User %1$s liked %2$s\'s post</string>
+    <string name="notification_user_posted" translatable="false">User %1$s added a new post:%n%2$s</string>
+    <string name="google_play_unavailable" translatable="false">Google Api Unavailable</string>
+</resources>
