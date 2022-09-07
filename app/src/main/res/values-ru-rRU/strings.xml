@@ -26,4 +26,8 @@
     <string name="empty_content_error">Пустой контент</string>
     <string name="chooser_share_post">Выберите приложение</string>
     <string name="create_new_post">Создать новый пост</string>
+    <string name="retry">Retry</string>
+    <string name="list_is_empty">List is empty</string>
+    <string name="something_went_wrong">Что-то пошло не так</string>
+    <string name="new_post">Новый пост</string>
 </resources>

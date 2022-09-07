@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -102,9 +103,22 @@ class FeedFragment : Fragment() {
         binding.list.adapter = adapter
         (binding.list.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
 
-        viewModel.data.observe(viewLifecycleOwner) { posts ->
-            adapter.submitList(posts)
+        viewModel.data.observe(viewLifecycleOwner) { state ->
+            with(binding) {
+                emptyText.isVisible = state.empty
+                errorGroup.isVisible = state.error
+                progressBar.isVisible = state.loading
+            }
+            adapter.submitList(state.posts)
         }
+
+        binding.retry.setOnClickListener {
+            viewModel.load()
+        }
+
+//        viewModel.data.observe(viewLifecycleOwner) { posts ->
+//            adapter.submitList(posts)
+//        }
 
         binding.create.setOnClickListener {
             findNavController().navigate(R.id.action_feedFragment_to_newPostFragment)
