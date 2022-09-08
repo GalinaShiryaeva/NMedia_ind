@@ -57,7 +57,7 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
     fun likeById(id: Long) {
         thread {
             _data.postValue(FeedModel(loading = true))
-            val post = _data.value?.posts.orEmpty().first { it.id == id }
+            val post = _data.value?.posts.orEmpty().find { it.id == id } ?: error("Post not found")
             try {
                 if (post.likedByMe == false) {
                     repository.likeById(id)

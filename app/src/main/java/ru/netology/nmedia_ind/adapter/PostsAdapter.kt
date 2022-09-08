@@ -17,6 +17,7 @@ interface PostEventListener {
     fun onShare(post: Post)
     fun onEdit(post: Post)
     fun onRemove(post: Post)
+    fun onRefresh()
     fun onVideo(post: Post)
     fun onPost(post: Post)
 }
@@ -83,6 +84,10 @@ class PostViewHolder(
                             }
                             R.id.edit -> {
                                 listener.onEdit(post)
+                                return@setOnMenuItemClickListener true
+                            }
+                            R.id.refresh -> {
+                                listener.onRefresh()
                                 return@setOnMenuItemClickListener true
                             }
                             else -> return@setOnMenuItemClickListener false
