@@ -27,7 +27,7 @@ class PostRepositoryImpl() : PostRepository {
 
     override fun getAll(): List<Post> {
         val request: Request = Request.Builder()
-            .url("${BASE_URL}/api/slow/posts")
+            .url("${BASE_URL}/api/posts")
             .build()
 
         return client.newCall(request)
@@ -47,13 +47,8 @@ class PostRepositoryImpl() : PostRepository {
     }
 
     override fun likeById(id: Long) {
-        val posts = getAll()
-        val oldPost =
-            posts.find { it.id == id } ?: throw Exception("Post with id = $id not found")
-        val post = oldPost.copy(likes = oldPost.likes + 1, likedByMe = !oldPost.likedByMe)
-
         val request = Request.Builder()
-            .post(gson.toJson(post).toRequestBody(jsonType))
+            .post("".toRequestBody(jsonType))
             .url("${BASE_URL}/api/posts/$id/likes")
             .build()
 
@@ -63,13 +58,8 @@ class PostRepositoryImpl() : PostRepository {
     }
 
     override fun dislikeById(id: Long) {
-        val posts = getAll()
-        val oldPost =
-            posts.find { it.id == id } ?: throw Exception("Post with id = $id not found")
-        val post = oldPost.copy(likes = oldPost.likes - 1, likedByMe = !oldPost.likedByMe)
-
         val request = Request.Builder()
-            .delete(gson.toJson(post).toRequestBody(jsonType))
+            .delete()
             .url("${BASE_URL}/api/posts/$id/likes")
             .build()
 
