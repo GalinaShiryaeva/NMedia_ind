@@ -57,13 +57,19 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
     fun likeById(id: Long) {
         thread {
             _data.postValue(FeedModel(loading = true))
-            val post = _data.value?.posts.orEmpty().find { it.id == id } ?: error("Post not found")
+            val oldPost =
+                _data.value?.posts.orEmpty().find { it.id == id } ?: error("Post not found")
+            var newPosts: List<Post>
+            var newPost: Post
             try {
-                if (post.likedByMe == false) {
-                    repository.likeById(id)
+                if (!oldPost.likedByMe) {
+                    newPost = repository.likeById(id)
                 } else {
-                    repository.dislikeById(id)
+                    newPost = repository.dislikeById(id)
                 }
+                newPosts = _data.value?.posts.orEmpty()
+                    .map { if (it.id == id) newPost else it }
+                _data.postValue(_data.value?.copy(posts = newPosts))
                 load()
                 _data.postValue(FeedModel(loading = false))
             } catch (e: Exception) {

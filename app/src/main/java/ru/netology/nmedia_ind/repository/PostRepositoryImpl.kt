@@ -1,20 +1,20 @@
 package ru.netology.nmedia_ind.repository
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.map
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.RequestBody.Companion.toRequestBody
+import okhttp3.logging.HttpLoggingInterceptor
 import ru.netology.nmedia_ind.dto.Post
-import java.lang.Exception
+import ru.netology.nmedia_ind.util.SimpleLoggingInterceptor
 import java.util.concurrent.TimeUnit
 
 class PostRepositoryImpl() : PostRepository {
 
     private val client = OkHttpClient.Builder()
+        .addInterceptor(SimpleLoggingInterceptor())
         .connectTimeout(30, TimeUnit.SECONDS)
         .build()
     private val gson = Gson()
@@ -46,26 +46,28 @@ class PostRepositoryImpl() : PostRepository {
             .execute()
     }
 
-    override fun likeById(id: Long) {
+    override fun likeById(id: Long): Post {
         val request = Request.Builder()
             .post("".toRequestBody(jsonType))
             .url("${BASE_URL}/api/posts/$id/likes")
             .build()
 
-        client.newCall(request)
+        return client.newCall(request)
             .execute()
-            .close()
+            .let { it.body?.string() ?: error("Body is null") }
+            .let { gson.fromJson(it, Post::class.java) }
     }
 
-    override fun dislikeById(id: Long) {
+    override fun dislikeById(id: Long): Post {
         val request = Request.Builder()
             .delete()
             .url("${BASE_URL}/api/posts/$id/likes")
             .build()
 
-        client.newCall(request)
+        return client.newCall(request)
             .execute()
-            .close()
+            .let { it.body?.string() ?: error("Body is null") }
+            .let { gson.fromJson(it, Post::class.java) }
     }
 
     override fun shareById(id: Long) {
