@@ -22,12 +22,6 @@ class NewPostFragment : Fragment() {
         ownerProducer = ::requireParentFragment
     )
 
-//    private val repository: PostRepository = PostRepositorySQLiteImpl(
-//        AppDb.getInstance(requireActivity().application).postDao
-//    )
-//
-//    private val viewModel: PostViewModel by lazy { PostViewModel(repository) }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -47,8 +41,12 @@ class NewPostFragment : Fragment() {
                 viewModel.editContent(binding.content.text.toString())
                 viewModel.save()
             }
-            AndroidUtils.hideKeyboard(requireView())
-            findNavController().navigateUp()
+
+            viewModel.postCreated.observe(viewLifecycleOwner) {
+                AndroidUtils.hideKeyboard(requireView())
+                viewModel.load()
+                findNavController().navigateUp()
+            }
         }
         return binding.root
     }

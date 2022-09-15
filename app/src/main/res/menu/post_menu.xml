@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/remove"
         android:title="@string/post_menu_remove" />
     <item
         android:id="@+id/edit"
         android:title="@string/post_menu_edit" />
+    <item
+        android:id="@+id/refresh"
+        app:showAsAction="never"
+        android:title="@string/menu_refresh"/>
 </menu>

@@ -5,8 +5,10 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -19,6 +21,7 @@ import ru.netology.nmedia_ind.adapter.PostsAdapter
 import ru.netology.nmedia_ind.databinding.FragmentFeedBinding
 import ru.netology.nmedia_ind.dto.Post
 import ru.netology.nmedia_ind.viewmodel.PostViewModel
+import kotlin.concurrent.thread
 
 class FeedFragment : Fragment() {
 
@@ -73,6 +76,13 @@ class FeedFragment : Fragment() {
                 viewModel.removeById(post.id)
             }
 
+            override fun onRefresh() {
+                binding.swipeRefresh.isRefreshing = true
+                viewModel.load()
+                binding.swipeRefresh.isRefreshing = false
+
+            }
+
             override fun onVideo(post: Post) {
                 val appIntent = Intent(
                     Intent.ACTION_VIEW,
@@ -102,12 +112,28 @@ class FeedFragment : Fragment() {
         binding.list.adapter = adapter
         (binding.list.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
 
-        viewModel.data.observe(viewLifecycleOwner) { posts ->
-            adapter.submitList(posts)
+        viewModel.data.observe(viewLifecycleOwner) { state ->
+            with(binding) {
+                emptyText.isVisible = state.empty
+                errorGroup.isVisible = state.error
+                progressBar.isVisible = state.loading
+            }
+            adapter.submitList(state.posts)
         }
+
+        binding.retry.setOnClickListener {
+            viewModel.load()
+        }
+
 
         binding.create.setOnClickListener {
             findNavController().navigate(R.id.action_feedFragment_to_newPostFragment)
+        }
+
+
+        binding.swipeRefresh.setOnRefreshListener {
+            viewModel.load()
+            binding.swipeRefresh.isRefreshing = false
         }
 
         return binding.root
