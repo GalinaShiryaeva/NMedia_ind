@@ -2,10 +2,13 @@ package ru.netology.nmedia_ind.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ImageView
+import androidx.annotation.DrawableRes
 import androidx.appcompat.widget.PopupMenu
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import ru.netology.nmedia_ind.R
 import ru.netology.nmedia_ind.databinding.CardPostBinding
 import ru.netology.nmedia_ind.dto.Post
@@ -21,6 +24,10 @@ interface PostEventListener {
     fun onVideo(post: Post)
     fun onPost(post: Post)
 }
+
+private const val IMAGE_URL_PREFIX = "http://10.0.2.2:9999/avatars/"
+private val urls = listOf("netology.jpg", "sber.jpg", "tcs.jpg")
+private var index = 0
 
 class PostsAdapter(
     private val listener: PostEventListener
@@ -49,6 +56,7 @@ class PostViewHolder(
             author.text = post.author
             published.text = post.published
             content.text = post.content
+            avatar.load()
 
             video.setImageResource(R.mipmap.video_example)
             video.isVisible = !post.video.isNullOrBlank()
@@ -96,6 +104,21 @@ class PostViewHolder(
                 }.show()
             }
         }
+    }
+
+    fun ImageView.load(
+        @DrawableRes placeholder: Int = R.drawable.ic_uploading_96
+    ) {
+        val url: String = IMAGE_URL_PREFIX + urls[index++]
+        if (index == urls.size) {
+            index = 0
+        }
+        Glide.with(this)
+            .load(url)
+            .placeholder(placeholder)
+            .error(R.drawable.ic_error_96)
+            .timeout(10_000)
+            .into(this)
     }
 }
 

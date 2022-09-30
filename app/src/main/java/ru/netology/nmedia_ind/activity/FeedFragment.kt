@@ -39,6 +39,8 @@ class FeedFragment : Fragment() {
             false
         )
 
+
+
         val adapter = PostsAdapter(object : PostEventListener {
 
             override fun onLike(post: Post) {
