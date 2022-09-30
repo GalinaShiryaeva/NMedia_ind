@@ -10,5 +10,5 @@
     <dimen name="footer_height">56dp</dimen>
     <dimen name="icon_button_min_size">24dp</dimen>
     <dimen name="posts_video_preview_height">200dp</dimen>
-    <dimen name="posts_video_preview_width">400dp</dimen>
+    <dimen name="posts_video_preview_width">500dp</dimen>
 </resources>

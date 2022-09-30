@@ -12,8 +12,10 @@ import com.bumptech.glide.Glide
 import ru.netology.nmedia_ind.R
 import ru.netology.nmedia_ind.databinding.CardPostBinding
 import ru.netology.nmedia_ind.dto.Post
+import ru.netology.nmedia_ind.enumeration.AttachmentType
 import ru.netology.nmedia_ind.repository.PostDiffCallback
 import ru.netology.nmedia_ind.util.validateText
+
 
 interface PostEventListener {
     fun onLike(post: Post)
@@ -25,9 +27,9 @@ interface PostEventListener {
     fun onPost(post: Post)
 }
 
-private const val IMAGE_URL_PREFIX = "http://10.0.2.2:9999/avatars/"
-private val urls = listOf("netology.jpg", "sber.jpg", "tcs.jpg")
-private var index = 0
+private const val BASE_URL = "http://10.0.2.2:9999/"
+private const val AVATARS_URL_PREFIX = "avatars/"
+private const val IMAGES_URL_PREFIX = "images/"
 
 class PostsAdapter(
     private val listener: PostEventListener
@@ -56,13 +58,20 @@ class PostViewHolder(
             author.text = post.author
             published.text = post.published
             content.text = post.content
-            avatar.load()
+            avatar.loadAvatar(post)
 
-            video.setImageResource(R.mipmap.video_example)
-            video.isVisible = !post.video.isNullOrBlank()
-            if (video.isVisible) {
-                video.setOnClickListener {
-                    listener.onVideo(post)
+            if (post.attachment != null) {
+                attachment.isVisible = true
+                when (post.attachment.type) {
+                    AttachmentType.VIDEO -> {
+                        attachment.setImageResource(R.mipmap.video_example)
+                        attachment.setOnClickListener {
+                            listener.onVideo(post)
+                        }
+                    }
+                    AttachmentType.IMAGE -> {
+                        attachment.loadAttachment(post)
+                    }
                 }
             }
 
@@ -106,18 +115,30 @@ class PostViewHolder(
         }
     }
 
-    fun ImageView.load(
+    private fun ImageView.loadAvatar(
+        post: Post,
         @DrawableRes placeholder: Int = R.drawable.ic_uploading_96
     ) {
-        val url: String = IMAGE_URL_PREFIX + urls[index++]
-        if (index == urls.size) {
-            index = 0
-        }
+        val url = BASE_URL + AVATARS_URL_PREFIX + post.authorAvatar
+
         Glide.with(this)
             .load(url)
             .placeholder(placeholder)
             .error(R.drawable.ic_error_96)
             .circleCrop()
+            .timeout(10_000)
+            .into(this)
+    }
+
+    private fun ImageView.loadAttachment(
+        post: Post,
+        @DrawableRes placeholder: Int = R.drawable.ic_uploading_96
+    ) {
+        val url = BASE_URL + IMAGES_URL_PREFIX + post.attachment?.url
+        Glide.with(this)
+            .load(url)
+            .placeholder(placeholder)
+            .error(R.drawable.ic_error_96)
             .timeout(10_000)
             .into(this)
     }

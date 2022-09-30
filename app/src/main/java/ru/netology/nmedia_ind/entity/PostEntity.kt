@@ -2,6 +2,7 @@ package ru.netology.nmedia_ind.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import ru.netology.nmedia_ind.dto.Attachment
 import ru.netology.nmedia_ind.dto.Post
 
 @Entity
@@ -15,7 +16,7 @@ data class PostEntity(
     val likedByMe: Boolean,
     val likes: Int = 0,
     val shared: Int = 0,
-    val video: String?
+//    val video: String?
 ) {
     fun toDto(): Post = Post(
         id = id,
@@ -26,7 +27,7 @@ data class PostEntity(
         likedByMe = likedByMe,
         likes = likes,
         shared = shared,
-        video = video
+//        video = video
     )
 
     companion object {
@@ -41,7 +42,7 @@ data class PostEntity(
                     likedByMe = likedByMe,
                     likes = likes,
                     shared = shared,
-                    video = video
+                    //attachment = attachment
                 )
             }
     }

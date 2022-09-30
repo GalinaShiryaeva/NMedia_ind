@@ -77,7 +77,7 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
                 }
             })
         } else {
-            repository.dislikeById(id, object : PostRepository.Callback<Post> {
+            repository.dislikeByIdAsync(id, object : PostRepository.Callback<Post> {
                 override fun onSuccess(post: Post) {
                     newPosts = _data.value?.posts.orEmpty()
                         .map { if (it.id == id) post else it }

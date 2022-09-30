@@ -5,7 +5,6 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
@@ -21,6 +20,7 @@ import ru.netology.nmedia_ind.adapter.PostsAdapter
 import ru.netology.nmedia_ind.databinding.FragmentFeedBinding
 import ru.netology.nmedia_ind.dto.Post
 import ru.netology.nmedia_ind.viewmodel.PostViewModel
+
 
 class FeedFragment : Fragment() {
 
@@ -38,8 +38,6 @@ class FeedFragment : Fragment() {
             container,
             false
         )
-
-
 
         val adapter = PostsAdapter(object : PostEventListener {
 
@@ -87,11 +85,11 @@ class FeedFragment : Fragment() {
             override fun onVideo(post: Post) {
                 val appIntent = Intent(
                     Intent.ACTION_VIEW,
-                    Uri.parse("vnd.youtube:" + post.video)
+                    Uri.parse("vnd.youtube:" + post.attachment?.url)
                 )
                 val webIntent = Intent(
                     Intent.ACTION_VIEW,
-                    Uri.parse("http://www.youtube.com/watch?v=" + post.video)
+                    Uri.parse("http://www.youtube.com/watch?v=" + post.attachment?.url)
                 )
                 try {
                     startActivity(appIntent)

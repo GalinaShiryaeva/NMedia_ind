@@ -93,7 +93,7 @@ class PostRepositoryImpl() : PostRepository {
             })
     }
 
-    override fun dislikeById(id: Long, callback: PostRepository.Callback<Post>) {
+    override fun dislikeByIdAsync(id: Long, callback: PostRepository.Callback<Post>) {
         val request = Request.Builder()
             .delete()
             .url("${BASE_URL}/api/posts/$id/likes")
