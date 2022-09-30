@@ -21,7 +21,6 @@ import ru.netology.nmedia_ind.adapter.PostsAdapter
 import ru.netology.nmedia_ind.databinding.FragmentFeedBinding
 import ru.netology.nmedia_ind.dto.Post
 import ru.netology.nmedia_ind.viewmodel.PostViewModel
-import kotlin.concurrent.thread
 
 class FeedFragment : Fragment() {
 
