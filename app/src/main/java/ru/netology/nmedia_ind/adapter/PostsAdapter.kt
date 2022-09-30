@@ -117,6 +117,7 @@ class PostViewHolder(
             .load(url)
             .placeholder(placeholder)
             .error(R.drawable.ic_error_96)
+            .circleCrop()
             .timeout(10_000)
             .into(this)
     }
