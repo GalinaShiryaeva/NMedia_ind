@@ -76,7 +76,7 @@
         tools:gravity="start|top"/>
 
     <ImageView
-        android:id="@+id/video"
+        android:id="@+id/attachment"
         android:layout_width="@dimen/posts_video_preview_width"
         android:layout_height="@dimen/posts_video_preview_height"
         android:visibility="gone"
@@ -92,7 +92,7 @@
         android:layout_height="wrap_content"
         app:barrierDirection="top"
         app:constraint_referenced_ids="like, share, viewed"
-        app:layout_constraintTop_toBottomOf="@id/video"
+        app:layout_constraintTop_toBottomOf="@id/attachment"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 

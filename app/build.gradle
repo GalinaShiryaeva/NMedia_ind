@@ -6,12 +6,12 @@ plugins {
 }
 
 android {
-    compileSdk 32
+    compileSdk 33
 
     defaultConfig {
         applicationId "ru.netology.nmedia_ind"
         minSdk 29
-        targetSdk 32
+        targetSdk 33
         versionCode 1
         versionName "1.0"
 
@@ -43,20 +43,21 @@ dependencies {
 
     def arch_version = "2.1.0"
     def lifecycle_version = "2.5.1"
-    def fragment_version = "1.5.2"
-    def activity_version = '1.5.1'
+    def fragment_version = "1.5.3"
+    def activity_version = '1.6.0'
     def gson_version = '2.9.1'
-    def nav_version = "2.5.1"
+    def nav_version = "2.5.2"
     def room_version = "2.4.3"
     def firebase_bom_version = "30.3.2"
     def play_services_base_version = "18.1.0"
     def okhttp_version = "4.10.0"
+    def glide_version = "4.14.0"
 
-    implementation 'androidx.core:core-ktx:1.8.0'
-    implementation 'androidx.appcompat:appcompat:1.5.0'
+    implementation 'androidx.core:core-ktx:1.9.0'
+    implementation 'androidx.appcompat:appcompat:1.5.1'
     implementation 'com.google.android.material:material:1.6.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    implementation "androidx.activity:activity-ktx:1.5.1"
+    implementation "androidx.activity:activity-ktx:1.6.0"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
     implementation "androidx.activity:activity-ktx:$activity_version"
@@ -71,7 +72,7 @@ dependencies {
     implementation "com.google.firebase:firebase-messaging-ktx:23.0.8"
     implementation "com.google.android.gms:play-services-base:$play_services_base_version"
     implementation "com.squareup.okhttp3:okhttp:$okhttp_version"
-
+    implementation "com.github.bumptech.glide:glide:$glide_version"
 
     testImplementation "androidx.arch.core:core-testing:$arch_version"
     testImplementation 'junit:junit:4.13.2'
