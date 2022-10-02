@@ -77,8 +77,9 @@
 
     <ImageView
         android:id="@+id/attachment"
-        android:layout_width="@dimen/posts_video_preview_width"
-        android:layout_height="@dimen/posts_video_preview_height"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
         android:visibility="gone"
         android:clickable="true"
         app:layout_constraintTop_toBottomOf="@id/content"
