@@ -73,6 +73,8 @@ class PostViewHolder(
                         attachment.loadAttachment(post)
                     }
                 }
+            } else {
+                attachment.isVisible = false
             }
 
             like.text = validateText(post.likes)
