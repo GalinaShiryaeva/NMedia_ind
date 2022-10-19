@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.SimpleItemAnimator
+import okhttp3.internal.wait
 import ru.netology.nmedia_ind.R
 import ru.netology.nmedia_ind.activity.NewPostFragment.Companion.textArg
 import ru.netology.nmedia_ind.activity.PostDetailsFragment.Companion.idArg
@@ -19,7 +20,9 @@ import ru.netology.nmedia_ind.adapter.PostEventListener
 import ru.netology.nmedia_ind.adapter.PostsAdapter
 import ru.netology.nmedia_ind.databinding.FragmentFeedBinding
 import ru.netology.nmedia_ind.dto.Post
+import ru.netology.nmedia_ind.model.FeedModel
 import ru.netology.nmedia_ind.viewmodel.PostViewModel
+import kotlin.system.exitProcess
 
 
 class FeedFragment : Fragment() {
@@ -79,7 +82,6 @@ class FeedFragment : Fragment() {
                 binding.swipeRefresh.isRefreshing = true
                 viewModel.load()
                 binding.swipeRefresh.isRefreshing = false
-
             }
 
             override fun onVideo(post: Post) {
@@ -116,6 +118,7 @@ class FeedFragment : Fragment() {
                 emptyText.isVisible = state.empty
                 errorGroup.isVisible = state.error
                 progressBar.isVisible = state.loading
+                waitGroup.isVisible = state.waiting
             }
             adapter.submitList(state.posts)
         }
@@ -124,11 +127,18 @@ class FeedFragment : Fragment() {
             viewModel.load()
         }
 
+        binding.wait.setOnClickListener {
+            viewModel.load()
+        }
+
+        binding.close.setOnClickListener {
+            activity?.finish()
+            exitProcess(0)
+        }
 
         binding.create.setOnClickListener {
             findNavController().navigate(R.id.action_feedFragment_to_newPostFragment)
         }
-
 
         binding.swipeRefresh.setOnRefreshListener {
             viewModel.load()

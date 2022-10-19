@@ -31,4 +31,7 @@
     <string name="something_went_wrong">Что-то пошло не так</string>
     <string name="new_post">Новый пост</string>
     <string name="menu_refresh">Обновить</string>
+    <string name="loading">Идет загрузка</string>
+    <string name="close_app">Закрыть приложение</string>
+    <string name="wait">Подождать</string>
 </resources>
